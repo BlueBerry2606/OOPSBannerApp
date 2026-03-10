@@ -1,26 +1,12 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class OOPSBannerApp {
 
-    static class CharacterPatternMap {
+    public static Map<Character, String[]> buildPatternMap() {
+        Map<Character, String[]> patternMap = new HashMap<>();
 
-        private final char character;
-        private final String[] pattern;
-
-        public CharacterPatternMap(char character, String[] pattern) {
-            this.character = character;
-            this.pattern = pattern;
-        }
-
-        public char getCharacter() {
-            return character;
-        }
-
-        public String[] getPattern() {
-            return pattern;
-        }
-    }
-
-    public static CharacterPatternMap getOPattern() {
-        return new CharacterPatternMap('O', new String[] {
+        patternMap.put('O', new String[] {
             " ******* ",
             "*       *",
             "*       *",
@@ -29,10 +15,8 @@ public class OOPSBannerApp {
             "*       *",
             " ******* "
         });
-    }
 
-    public static CharacterPatternMap getPPattern() {
-        return new CharacterPatternMap('P', new String[] {
+        patternMap.put('P', new String[] {
             "******** ",
             "*       *",
             "*       *",
@@ -41,10 +25,8 @@ public class OOPSBannerApp {
             "*        ",
             "*        "
         });
-    }
 
-    public static CharacterPatternMap getSPattern() {
-        return new CharacterPatternMap('S', new String[] {
+        patternMap.put('S', new String[] {
             " ******* ",
             "*        ",
             "*        ",
@@ -53,26 +35,26 @@ public class OOPSBannerApp {
             "        *",
             " ******* "
         });
+
+        return patternMap;
     }
 
-    public static void main(String[] args) {
-
-        CharacterPatternMap[] chars = new CharacterPatternMap[] {
-            getOPattern(),
-            getOPattern(),
-            getPPattern(),
-            getSPattern()
-        };
-
+    public static void displayBanner(String word, Map<Character, String[]> patternMap) {
         for (int row = 0; row < 7; row++) {
             StringBuilder line = new StringBuilder();
-            for (int col = 0; col < chars.length; col++) {
-                line.append(chars[col].getPattern()[row]);
-                if (col < chars.length - 1) {
+            for (int col = 0; col < word.length(); col++) {
+                char ch = word.charAt(col);
+                line.append(patternMap.get(ch)[row]);
+                if (col < word.length() - 1) {
                     line.append("  ");
                 }
             }
             System.out.println(line.toString());
         }
+    }
+
+    public static void main(String[] args) {
+        Map<Character, String[]> patternMap = buildPatternMap();
+        displayBanner("OOPS", patternMap);
     }
 }
